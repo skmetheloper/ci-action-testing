@@ -26,7 +26,7 @@ if (isset($argv[2])) {
 $patch = (int) $patch + 1;
 $version = "{$major}.{$minor}.{$patch}";
 
-$baseUrl = 'https://skmetheloper:'.SECRET_TOKEN.'@api.github.com/repos/skmetheloper/ci-action-testing’;
+$baseUrl = 'https://skmetheloper:'.SECRET_TOKEN.'@api.github.com/repos/skmetheloper/ci-action-testing';
 $targetUrl = $baseUrl.'/contents/version';
 
 $context = stream_create_context([
@@ -35,9 +35,7 @@ $context = stream_create_context([
     ]
 ]);
 
-
 $content['message'] = 'Updated '.'patch'.'@'.$version.' on '.date('d-m-Y H:i:s Z'),
 $content['content'] = base64_encode($version);
-
 
 file_put_contents($targetUrl, json_encode($content), $context);

@@ -22,7 +22,7 @@ jobs:
       - name: Testing PHPUnit
         run: composer run-script test
 
-      - name: Secret Key
+      - name: Update version
         env:
           SECRET_KEY: ${{ secrets.SECRET_KEY }}
-        run: echo $SECRET_KEY
+        run: php bin/version $SECRET_KEY

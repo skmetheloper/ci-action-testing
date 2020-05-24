@@ -29,5 +29,11 @@
     }
   },
   "minimum-stability": "dev",
-  "prefer-stable": true
+  "prefer-stable": true,
+  "scripts": {
+    "test": [
+      "@composer install",
+      "vendor/bin/phpunit"
+    ]
+  }
 }

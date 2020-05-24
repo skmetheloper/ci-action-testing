@@ -17,10 +17,8 @@ $targetUrl = $baseUrl.'/contents/version';
 if (file_exists($version_file)) {
     $version = file_get_contents($version_file);
     exec('curl --header "Content-Type: application/json" --request GET '.$targetUrl.'?ref=master', $_content);
-    print str_repeat("\r\n",5);
-    var_dump($_content);
-    print str_repeat("\r\n",5);
-    $_content = json_decode($_content, true);
+    // print str_repeat("\r\n",5);
+    $_content = json_decode(join('', $_content), true);
     $content['sha'] = $_content['sha'];
 }
 

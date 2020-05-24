@@ -12,14 +12,11 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Checking PHP Version
-        run: php --version
-
-      - name: Composer Validation
-        run: composer validate
-
-      - name: Composer Installation
-        run: composer install
+      - name: Check PHP Version & Composer Validation
+        run: php --version && composer validate
 
       - name: Testing PHPUnit
         run: composer run-script test
+
+      - name: Secret Key
+        run: echo ${{SECRET_KEY}}

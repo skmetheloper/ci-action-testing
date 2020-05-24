@@ -34,7 +34,10 @@ $content['content'] = base64_encode($version);
 
 sleep(1);
 
-$curl_cmd = 'curl --data \'' . json_encode($content, 96) . '\' --header "Content-Type: application/json" --request POST ';
-echo '> ', $curl_cmd;
+$curl_cmd = 'curl --data \''.json_encode($content, 96).'\' --header "Content-Type: application/json" --progress-bar --request PUT '.$targetUrl;
 
-passthru($curl_cmd . ' --progress-bar ' . $targetUrl);
+echo PHP_EOL, PHP_EOL;
+
+passthru($curl_cmd);
+
+echo PHP_EOL;

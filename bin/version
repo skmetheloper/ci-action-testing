@@ -36,7 +36,8 @@ $result = curl_post($targetUrl, $content);
 
 var_dump($result);
 
-function curl_post(string $url, array $data
+function curl_post(string $url, array $data)
+{
   $options = [
     CURLOPT_POST => 1, 
     CURLOPT_HEADER => 0, 
@@ -47,14 +48,20 @@ function curl_post(string $url, array $data
     CURLOPT_TIMEOUT => 4, 
     CURLOPT_POSTFIELDS => http_build_query($data)
   ];
+
   $ch = curl_init();
+
   curl_setopt($ch, $options);
+
   $result = curl_exec($ch);
+
   if (! $result) {
     $error = [
       'err' => curl_error($ch)
     ];
   }
+
   curl_close($ch);
+
   return $result ?: $error;
 }

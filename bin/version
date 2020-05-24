@@ -29,8 +29,12 @@ $version = "{$major}.{$minor}.{$patch}";
 $baseUrl = 'https://skmetheloper:'.SECRET_TOKEN.'@api.github.com/repos/skmetheloper/ci-action-testing';
 $targetUrl = $baseUrl.'/contents/version';
 
-$content['message'] = 'Updated '.'patch'.'@'.$version.' on '.date('d-m-Y H:i:s Z');
+$content['message'] = 'Updated new '.'patch'.'@'.$version.' on '.date('d-m-Y H:i:s Z');
 $content['content'] = base64_encode($version);
+
+echo '> Before CURL to ', $targetUrl, ' with ', json_encode($content);
+
+sleep(1);
 
 $result = curl_post($targetUrl, $content);
 

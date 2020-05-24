@@ -1,0 +1,28 @@
+name: PHP
+
+on:
+  push:
+    branches: [ master ]
+  pull_request:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-lastest
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Checking PHP Version
+        run: php --version
+
+      - name: Composer Validation
+        run: composer validate
+
+      - name: Composer Installation
+        run: composer install
+
+      - name: Testing PHPUnit
+        run: vendor/bin/phpunit
+
+      - name: PHP Global Variables
+        run: php -r "var_dump($GLOBALS);"

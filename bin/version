@@ -32,40 +32,9 @@ $targetUrl = $baseUrl.'/contents/version';
 $content['message'] = 'Updated new '.'patch'.'@'.$version.' on '.date('d-m-Y H:i:s Z');
 $content['content'] = base64_encode($version);
 
-echo '> Before CURL to ', $targetUrl, ' with ', json_encode($content);
-
 sleep(1);
 
-$result = curl_post($targetUrl, $content);
+$curl_cmd = 'curl --data \'' . json_encode($content, 96) . '\' --header "Content-Type: application/json" --request POST ';
+echo '> ', $curl_cmd;
 
-var_dump($result);
-
-function curl_post(string $url, array $data)
-{
-  $options = [
-    CURLOPT_POST => 1, 
-    CURLOPT_HEADER => 0, 
-    CURLOPT_URL => $url, 
-    CURLOPT_FRESH_CONNECT => 1, 
-    CURLOPT_RETURNTRANSFER => 1, 
-    CURLOPT_FORBID_REUSE => 1, 
-    CURLOPT_TIMEOUT => 4, 
-    CURLOPT_POSTFIELDS => http_build_query($data)
-  ];
-
-  $ch = curl_init();
-
-  curl_setopt_array($ch, $options);
-
-  $result = curl_exec($ch);
-
-  if (! $result) {
-    $error = [
-      'err' => curl_error($ch)
-    ];
-  }
-
-  curl_close($ch);
-
-  return $result ?: $error;
-}
+passthru($curl_cmd . ' --progress-bar ' . $targetUrl);

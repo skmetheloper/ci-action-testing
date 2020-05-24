@@ -1,0 +1,43 @@
+#!/usr/bin/env php
+<?php
+
+if ($argc < 2) {
+    throw new ArgumentCountError();
+}
+
+define('SECRET_TOKEN', (string) $argv[1]);
+
+$version_file = dirname(__DIR__).'/version';
+
+$version = '1.0.0';
+
+if (file_exists($version_file)) {
+    $version = file_get_contents($version_file);
+    $content['sha'] = '';
+}
+
+[$major, $minor, $patch] = explode('.', $version);
+
+if (isset($argv[2])) {
+    echo "Invalid argument input";
+    exit(1);
+}
+
+$patch = (int) $patch + 1;
+$version = "{$major}.{$minor}.{$patch}";
+
+$baseUrl = 'https://skmetheloper:'.SECRET_TOKEN.'@api.github.com/repos/skmetheloper/ci-action-testing’;
+$targetUrl = $baseUrl.'/contents/version';
+
+$context = stream_create_context([
+    'https' => [
+         'method' => 'POST'
+    ]
+]);
+
+
+$content['message'] = 'Updated '.'patch'.'@'.$version.' on '.date('d-m-Y H:i:s Z'),
+$content['content'] = base64_encode($version);
+
+
+file_put_contents($targetUrl, json_encode($content), $context);

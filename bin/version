@@ -16,7 +16,7 @@ $targetUrl = $baseUrl.'/contents/version';
 
 if (file_exists($version_file)) {
     $version = file_get_contents($version_file);
-    $_content = file_get_contents($targetUrl.'?ref=master');
+    passthru('curl --header "Content-Type: application/json" --request GET '.$targetUrl.'?ref=master', $_content);
     $_content = json_decode($_content, 96);
     $content['sha'] = $_content['sha'];
 }
@@ -36,7 +36,7 @@ $content['content'] = base64_encode($version);
 
 sleep(1);
 
-$curl_cmd = 'curl --data \''.json_encode($content, 96).'\' --header "Content-Type: application/json" --progress-bar --request PUT '.$targetUrl;
+$curl_cmd = 'curl --data \''.json_encode($content, 96).'\' --header "Content-Type: application/json" --request PUT '.$targetUrl;
 
 echo PHP_EOL, PHP_EOL;
 

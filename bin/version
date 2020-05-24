@@ -13,7 +13,9 @@ $version = '1.0.0';
 
 if (file_exists($version_file)) {
     $version = file_get_contents($version_file);
-    $content['sha'] = '';
+    $_content = file_get_contents('https://api.github.com/repos/skmetheloper/ci-action-testing/contents/version?ref=master');
+    $_content = json_decode($_content, 96);
+    $content['sha'] = $_content['sha'];
 }
 
 [$major, $minor, $patch] = explode('.', $version);

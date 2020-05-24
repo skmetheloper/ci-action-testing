@@ -11,9 +11,12 @@ $version_file = dirname(__DIR__).'/version';
 
 $version = '1.0.0';
 
+$baseUrl = 'https://skmetheloper:'.SECRET_TOKEN.'@api.github.com/repos/skmetheloper/ci-action-testing';
+$targetUrl = $baseUrl.'/contents/version';
+
 if (file_exists($version_file)) {
     $version = file_get_contents($version_file);
-    $_content = file_get_contents('https://api.github.com/repos/skmetheloper/ci-action-testing/contents/version?ref=master');
+    $_content = file_get_contents($targetUrl.'?ref=master');
     $_content = json_decode($_content, 96);
     $content['sha'] = $_content['sha'];
 }
@@ -27,9 +30,6 @@ if (isset($argv[2])) {
 
 $patch = (int) $patch + 1;
 $version = "{$major}.{$minor}.{$patch}";
-
-$baseUrl = 'https://skmetheloper:'.SECRET_TOKEN.'@api.github.com/repos/skmetheloper/ci-action-testing';
-$targetUrl = $baseUrl.'/contents/version';
 
 $content['message'] = 'Updated new '.'patch'.'@'.$version.' on '.date('d-m-Y H:i:s Z');
 $content['content'] = base64_encode($version);

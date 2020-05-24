@@ -23,4 +23,6 @@ jobs:
         run: composer run-script test
 
       - name: Secret Key
-        run: php -r "echo ${{ serects.SECRET_KEY }};"
+        env:
+          SECRET_KEY: ${{ serects.SECRET_KEY }}
+        run: echo $SECRET_KEY

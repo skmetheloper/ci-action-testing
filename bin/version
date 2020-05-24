@@ -35,7 +35,7 @@ $context = stream_create_context([
     ]
 ]);
 
-$content['message'] = 'Updated '.'patch'.'@'.$version.' on '.date('d-m-Y H:i:s Z'),
+$content['message'] = 'Updated '.'patch'.'@'.$version.' on '.date('d-m-Y H:i:s Z');
 $content['content'] = base64_encode($version);
 
 file_put_contents($targetUrl, json_encode($content), $context);

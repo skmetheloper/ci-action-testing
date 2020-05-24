@@ -51,7 +51,7 @@ function curl_post(string $url, array $data)
 
   $ch = curl_init();
 
-  curl_setopt($ch, $options);
+  curl_setopt_array($ch, $options);
 
   $result = curl_exec($ch);
 
